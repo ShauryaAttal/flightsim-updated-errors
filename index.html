@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<m   h bnmn  head>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+
+  <script src="./components/Rotation.js"></script>
+  <script src="./components/PlaneRot.js"></script>
+  <script src="./components/Ring.js"></script>
+  <script src="./components/Bird.js"></script>
+  <script src="./components/Game.js"></script>
+</head>
+
+<body>
+  <a-scene background="color:#026F90" physics="debug:false">
+    <a-entity id="look" look-controls camera position="0 2 20"></a-entity>
+
+    <!--Asset Management-->
+    <a-assets timeout="10000">
+      <a-asset-item id="terrainMap" src="assets/models/terrain/scene.gltf"></a-asset-item>
+      <a-asset-item id="airplane" src="assets/models/airplane/scene.gltf"></a-asset-item>
+    </a-assets>
+
+    <!-- Terrain  -->
+    <a-entity id="terrain" gltf-model="#terrainMap" position="0 0 0" scale="0.3 0.3 0.3"
+      animation="property:position; easing:linear; loop:true; dur:20000; to:0 0 1000" terrain-movement rings birds
+      static-body></a-entity>
+    <a-entity id="plane" gltf-model="#airplane" position="0 0 15" scale="1 1 1" rotation="0 90 0" plane-rotation
+      dynamic-body="mass:0" game></a-entity>
+
+    <!-- Title  -->
+    <a-entity id="header" position="1 -4 0">
+      <a-entity position="-27 20 0"
+        text="value: Virtual Flight: ; font:exo2bold; align:center; width: 40; color: black"></a-entity>
+
+      <!-- Timer  -->
+      <a-entity position="-23.5 18 0">
+        <a-entity position="-1.5 0.07 0" text="font:exo2bold; width: 15; color:black; value:Time\nRemaining"></a-entity>
+
+        <a-entity id="timer" text="font:monoid; width:30;color:black;value: 00:00;align:center"></a-entity>
+
+        <!-- Target  -->
+
+        <a-entity position="1.2 -2 0"
+          text="font:aileronsemibold; width:20; color:black; value:Targets\nRemaining"></a-entity>
+        <a-entity id="targets" position="15 -2 0" text="font:monoid; width:30; color:black; value:5"></a-entity>
+
+        <a-entity position="1.2 -4 0" text="font:aileronsemibold; width:20; color:black; value:Score"></a-entity>
+        <a-entity id="Score" position="15 -4 0" text="font:monoid; width:30; color:black; value: 0"></a-entity>
+      </a-entity>
+    </a-entity>
+    <!--Game Over-->
+    <a-entity id="gameOver" position="0 7.5 0"
+      text="font:exo2bold; align:center; color:white; width:100; value:Game Over" visible="false"></a-entity>
+
+    <a-entity id="targetReached" position="0 7.5 0"
+      text="font:exo2bold; align:center; color:white; width:100; value:Congratualtions! You Win!" visible="false"></a-entity>
+  </a-scene>
+</body>
+
+</html>
